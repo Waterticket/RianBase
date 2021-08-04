@@ -3,8 +3,8 @@ include "common/config.php";
 session_start();
 ob_start();
 
-$_GET   = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
-$_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+// $_GET   = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
+// $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
 function _RianBase_Autoload($className){
     // lookup table
@@ -27,7 +27,7 @@ function _RianBase_Autoload($className){
     if($classTable[$className])
         include 'classes/'.$className.'/'.$className.'.php';
 
-    if($frameworkTable[$className])
+    else if($frameworkTable[$className])
     {
         $include_str = 'frameworks';
         $exp = explode('\\', $className);
@@ -35,6 +35,13 @@ function _RianBase_Autoload($className){
             $include_str .= '/'.$exp[$i];
 
         include $include_str.'.php';
+    }
+
+    else if(strpos($className, "Module") === 0)
+    {
+        $exp = explode('\\', $className);
+        $exp = preg_split('/(?=[A-Z])/', $exp[1]);
+        include 'modules/'.$exp[0].'/'.$exp[0].'.'.strtolower($exp[1]).'.php';
     }
 }
 

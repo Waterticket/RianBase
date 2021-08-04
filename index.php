@@ -32,5 +32,10 @@ Router::add('/db/test', function(){
     echo '<pre>'.print_r($db_result, true).'</pre>';
 });
 
+Router::add('/test/hello', function(){
+    $oTestController = new Module\testController();
+    $oTestController->hello();
+});
+
 Router::run('/');
 ob_end_flush();
