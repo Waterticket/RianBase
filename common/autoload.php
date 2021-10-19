@@ -1,10 +1,8 @@
 <?php
 include "common/config.php";
+include "common/common.php";
 session_start();
 ob_start();
-
-// $_GET   = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
-// $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
 function _RianBase_Autoload($className){
     // lookup table
@@ -15,6 +13,8 @@ function _RianBase_Autoload($className){
         'IP' => true,
         'Context' => true,
         'Shell' => true,
+        'Template' => true,
+        'File' => true,
     );
 
     // 시스템적으로 사용하는 애들

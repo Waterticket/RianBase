@@ -22,7 +22,7 @@ class Database {
 
         $args = func_get_args();
 		$arg_count = func_num_args();
-		if($arg_count != substr_count($cmd, '?') + 1) {
+		if($arg_count != substr_count($query, '?') + 1) {
             throw new \RianBase\Message\Exception(EXCEPTION_LEVEL_WARNING, 'Placeholder count not matching argument list.');
 			return false;
 		}
@@ -47,7 +47,10 @@ class Database {
             $stmt->execute($variables);
             self::$db->commit();
 
-            $return_obj->data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $db_data = $stmt->fetchAll(PDO::FETCH_CLASS);
+            if(count($db_data) == 1) $db_data = $db_data[0];
+
+            $return_obj->data = $db_data;
             $return_obj->last_insert_id = self::$db->lastInsertId();
             $return_obj->error = 0;
             $return_obj->message = 'success';

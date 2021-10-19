@@ -28,13 +28,18 @@ Router::add('/json', function(){
 });
 
 Router::add('/db/test', function(){
-    $db_result = Database::executeQuery("SELECT * FROM test_table");
+    $db_result = Database::executeQuery("SELECT * FROM test_table WHERE test_id = ? OR test_id = ?", 1, 2);
     echo '<pre>'.print_r($db_result, true).'</pre>';
 });
 
 Router::add('/test/hello', function(){
     $oTestController = new testController();
     $oTestController->hello();
+});
+
+Router::add('/complicated/%number', function(){
+    $oTestController = new testController();
+    $oTestController->complicatedNumber();
 });
 
 Router::run('/');

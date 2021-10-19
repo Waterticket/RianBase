@@ -1,9 +1,17 @@
 <?php
 class Shell {
-    public static $_last_exec_out;
-    public static $_last_exec_retcode;
+    private static $_last_exec_out;
+    private static $_last_exec_retcode;
 
-    public static function executeShell($cmd) {
+	public function lastExecOutput() {
+		return self::$_last_exec_out;
+	}
+
+	public function lastExecReturnCode() {
+		return self::$_last_exec_retcode;
+	}
+
+    public static function executeCommand($cmd) {
 		$args = func_get_args();
 		$arg_count = func_num_args();
 		if($arg_count != substr_count($cmd, '?') + 1) {
