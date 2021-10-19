@@ -16,7 +16,8 @@ class testController extends testClass {
 
     public function complicatedNumber()
     {
-        $db_result = Database::executeQuery("SELECT * FROM test_table WHERE test_id = 1");
+        $num = Context::get('inc');
+        $db_result = Database::executeQuery("SELECT * FROM test_table WHERE test_id = ?", $num);
 
         Template::set('name', $db_result->data->name);
         Template::set('img_src', 'https://taja.hoto.dev/87032663_p0_master1200.jpg');

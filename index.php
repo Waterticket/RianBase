@@ -37,7 +37,8 @@ Router::add('/test/hello', function(){
     $oTestController->hello();
 });
 
-Router::add('/complicated/%number', function(){
+Router::add('/complicated/%number', function($inc){
+    Context::set('inc', $inc);
     $oTestController = new testController();
     $oTestController->complicatedNumber();
 });

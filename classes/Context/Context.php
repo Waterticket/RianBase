@@ -2,6 +2,27 @@
 
 class Context {
     public static $printType = 'html';
+    private static $context_value = array();
+
+    public static function set($name, $var)
+    {
+        self::$context_value[$name] = $var;
+    }
+
+    public static function get($name)
+    {
+        return self::$context_value[$name];
+    }
+
+    public static function pop($name)
+    {
+        unset(self::$context_value[$name]);
+    }
+
+    public static function clearValue()
+    {
+        self::$context_value = [];
+    }
 
     public static function setContentType($type)
     {
