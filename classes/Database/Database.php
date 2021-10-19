@@ -14,10 +14,26 @@ class Database {
         }
     }
 
-    public static function executeQuery($query, $variables = array())
+    public static function executeQuery($query)
     {
         if(self::$db == null) Database::initialDatabase();
         $begin_transaction = false;
+        $variables = array();
+
+        $args = func_get_args();
+		$arg_count = func_num_args();
+		if($arg_count != substr_count($cmd, '?') + 1) {
+            throw new \RianBase\Message\Exception(EXCEPTION_LEVEL_WARNING, 'Placeholder count not matching argument list.');
+			return false;
+		}
+
+        if($arg_count > 1) {
+			array_shift($args);
+
+			foreach($args as $arg_value) {
+                array_push($variables, $arg_value);
+			}
+		}
         
         $return_obj = new stdClass();
         $return_obj->query = $query;

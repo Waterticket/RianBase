@@ -37,7 +37,7 @@ function _RianBase_Autoload($className){
         include $include_str.'.php';
     }
 
-    else if(strpos($className, "Module") === 0)
+    else if(strpos($className, "Module") === 0) // 모듈일경우
     {
         $exp = explode('\\', $className);
         $exp = preg_split('/(?=[A-Z])/', $exp[1]);

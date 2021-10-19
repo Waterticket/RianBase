@@ -30,6 +30,8 @@ class Router{
         }else{
             $path = '/';
         }
+
+        $path = urldecode($path);
     
         // Get current request method
         $method = $_SERVER['REQUEST_METHOD'];
@@ -53,7 +55,7 @@ class Router{
             $route['expression'] = $route['expression'].'$';
 
             $route['expression'] = str_replace('%number', '([0-9]*)', $route['expression']);
-            $route['expression'] = str_replace('%string', '([A-Za-z0-9]*)', $route['expression']);
+            $route['expression'] = str_replace('%string', '([a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ_-]*)', $route['expression']);
             
             // echo $route['expression'].'<br/>';
     
