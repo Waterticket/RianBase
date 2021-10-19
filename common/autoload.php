@@ -14,6 +14,7 @@ function _RianBase_Autoload($className){
         'Database' => true,
         'IP' => true,
         'Context' => true,
+        'Shell' => true,
     );
 
     // 시스템적으로 사용하는 애들
@@ -37,11 +38,11 @@ function _RianBase_Autoload($className){
         include $include_str.'.php';
     }
 
-    else if(strpos($className, "Module") === 0) // 모듈일경우
+    else
     {
-        $exp = explode('\\', $className);
-        $exp = preg_split('/(?=[A-Z])/', $exp[1]);
-        include 'modules/'.$exp[0].'/'.$exp[0].'.'.strtolower($exp[1]).'.php';
+        $exp = preg_split('/(?=[A-Z])/', $className);
+        if(in_array($exp[1], ['Class','View','Controller'])) // 모듈일경우
+            include 'modules/'.$exp[0].'/'.$exp[0].'.'.strtolower($exp[1]).'.php';
     }
 }
 

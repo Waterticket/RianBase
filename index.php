@@ -33,7 +33,7 @@ Router::add('/db/test', function(){
 });
 
 Router::add('/test/hello', function(){
-    $oTestController = new Module\testController();
+    $oTestController = new testController();
     $oTestController->hello();
 });
 
